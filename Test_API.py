@@ -26,7 +26,7 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_IntBoolean(self):
-        task = {"task": "MissBoolean", "importance": "high", "completed": "1"}
+        task = {"task": "MissBoolean", "importance": "high", "completed": 1}
         response = requests.post("http://localhost:8000/tasks", json=task)
         self.assertEqual(response.status_code, 200) #pas d'erreur 422
         self.assertEqual(response.json(), {"detail": [
