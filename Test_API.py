@@ -28,7 +28,7 @@ class TestAPI(unittest.TestCase):
     def test_IntBoolean(self):
         task = {"task": "MissBoolean", "importance": "high", "completed": "1"}
         response = requests.post("http://localhost:8000/tasks", json=task)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200) #pas d'erreur 422
         self.assertEqual(response.json(), {"detail": [
             {"loc": ["body", "completed"], "msg": "value could not be parsed to a boolean",
              "type": "type_error.bool"}]})
@@ -36,7 +36,7 @@ class TestAPI(unittest.TestCase):
     def test_StringBoolean(self):
         task = {"task": "MissBoolean", "importance": "high", "completed": "not yet"}
         response = requests.post("http://localhost:8000/tasks", json=task)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)#pas d'erreur 422
         self.assertEqual(response.json(), {"detail": [
             {"loc": ["body", "completed"], "msg": "value could not be parsed to a boolean",
              "type": "type_error.bool"}]})
@@ -44,14 +44,14 @@ class TestAPI(unittest.TestCase):
     def test_IntString(self):
         task = {"task":1 , "importance": "high", "completed": True}
         response = requests.post("http://localhost:8000/tasks", json=task)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200) #pas d'erreur 422
         self.assertEqual(response.json(), {
             "detail": [{"loc": ["body", "task"], "msg": "value is not a valid string", "type": "type_error.str"}]})
 
     def test_BooleanString(self):
         task = {"task": True, "importance": "high", "completed": True}
         response = requests.post("http://localhost:8000/tasks", json=task)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200) #pas d'erreur 422
         self.assertEqual(response.json(), {"detail": [
             {"loc": ["body", "completed"], "msg": "value could not be parsed to a boolean",
              "type": "type_error.bool"}]})
